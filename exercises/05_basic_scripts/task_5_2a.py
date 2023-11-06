@@ -47,5 +47,46 @@ bin_ip = "00001010000000010000000111000011"
 00001010000000010000000111000000
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
-
 """
+network = input("Введите адрес сети в формате: 10.1.1.0/24\n")
+mask = network.split("/")[1]
+bin_mask = "1"*int(mask) + (32-int(mask))*"0"
+ip = network.split("/")[0]
+ip1 = int(ip.split('.')[0])
+ip2 = int(ip.split('.')[1])
+ip3 = int(ip.split('.')[2])
+ip4 = int(ip.split('.')[3])
+ip1_bin = bin(ip1)[2:]
+ip1_bin = (8-len(ip1_bin))*"0"+ip1_bin
+ip2_bin = bin(ip2)[2:]
+ip2_bin = (8-len(ip2_bin))*"0"+ip2_bin
+ip3_bin = bin(ip3)[2:]
+ip3_bin = (8-len(ip3_bin))*"0"+ip3_bin
+ip4_bin = bin(ip4)[2:]
+ip4_bin = (8-len(ip4_bin))*"0"+ip4_bin
+ip = ip1_bin + ip2_bin + ip3_bin + ip4_bin
+network = ip[:int(mask)] + (32-int(mask))*"0"
+ip1 = int(network[:8],2)
+ip2 = int(network[8:16],2)
+ip3 = int(network[16:24],2)
+ip4 = int(network[24:],2)
+bin_mask1 = bin_mask[:8]
+bin_mask2 = bin_mask[8:16]
+bin_mask3 = bin_mask[16:24]
+bin_mask4 = bin_mask[24:]
+int_mask1 = int(bin_mask1,2)
+int_mask2 = int(bin_mask2,2)
+int_mask3 = int(bin_mask3,2)
+int_mask4 = int(bin_mask4,2)
+
+
+template = """
+Network:
+{ip1:<8}  {ip2:<8}  {ip3:<8}  {ip4:<8}
+{ip1:08b}  {ip2:08b}  {ip3:08b}  {ip4:08b}
+Mask:
+/{mask}
+{int_mask1:<8} {int_mask2:<8} {int_mask3:<8} {int_mask4:<8}
+{int_mask1:<08b}  {int_mask2:<08b}  {int_mask3:<08b}  {int_mask4:<08b}"""
+
+print(template.format(ip1=ip1,ip2=ip2,ip3=ip3,ip4=ip4, int_mask1=int_mask1,int_mask2=int_mask2,int_mask3=int_mask3,int_mask4=int_mask4,mask=mask))
